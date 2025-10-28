@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - No + Calcetines</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* Variables de colores espaciales */
+        :root {
+            --azul-espacial: #0B3D91;
+            --naranja-nave: #FF6B00;
+            --verde-alien: #00FF88;
+            --morado-neon: #9D4EDD;
+            --negro-espacio: #000814;
+            --gris-panel: #1A1A2E;
+        }
+
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--negro-espacio);
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 4px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 4px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            font-family: 'Orbitron', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: linear-gradient(135deg, var(--gris-panel) 0%, #16213E 100%);
+            padding: 40px 30px;
+            border-radius: 15px;
+            border: 3px solid var(--naranja-nave);
+            box-shadow: 0 0 20px var(--naranja-nave);
+            position: relative;
+        }
+
+        .logo {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2.2rem;
+            color: var(--naranja-nave);
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--naranja-nave);
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            color: var(--verde-alien);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .form-container {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--azul-espacial);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: inset 0 0 15px rgba(11, 61, 145, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--verde-alien);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--azul-espacial);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--verde-alien);
+            box-shadow: 0 0 10px var(--verde-alien);
+        }
+
+        .form-input.error {
+            border-color: #ff4444;
+            box-shadow: 0 0 10px #ff4444;
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .password-requirements {
+            color: var(--verde-alien);
+            font-size: 0.8rem;
+            margin-top: 5px;
+            opacity: 0.7;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--naranja-nave), #FF8C00);
+            color: black;
+            box-shadow: 0 0 15px var(--naranja-nave);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--verde-alien);
+            border: 2px solid var(--verde-alien);
+            box-shadow: 0 0 10px var(--verde-alien);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px currentColor;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .login-link {
+            text-align: center;
+            color: var(--verde-alien);
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: var(--naranja-nave);
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-shadow: 0 0 10px var(--naranja-nave);
+        }
+
+        /* Naves decorativas */
+        .spaceship {
+            position: fixed;
+            font-size: 2rem;
+            z-index: -1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .spaceship-1 {
+            top: 10%;
+            left: 5%;
+        }
+
+        .spaceship-2 {
+            top: 20%;
+            right: 8%;
+            animation-delay: 2s;
+        }
+
+        .spaceship-3 {
+            bottom: 15%;
+            left: 10%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 20px;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="spaceship spaceship-1">🚀</div>
+    <div class="spaceship spaceship-2">🛸</div>
+    <div class="spaceship spaceship-3">👾</div>
+    
+    <div class="container">
+        <h1 class="logo">NO + CALCETINES</h1>
+        <p class="subtitle">REGISTRO DE TRIPULANTE</p>
+        
+        <div class="form-container">
+            <div class="form-group">
+                <label class="form-label">Nombre Completo</label>
+                <input type="text" class="form-input" id="fullName" placeholder="Ej: Ana García López">
+                <div class="error-message" id="nameError">El nombre debe tener al menos 3 caracteres</div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Contraseña Secreta</label>
+                <input type="password" class="form-input" id="password" placeholder="Crea tu contraseña">
+                <div class="password-requirements">Mínimo 6 caracteres</div>
+                <div class="error-message" id="passwordError">La contraseña debe tener al menos 6 caracteres</div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Confirmar Contraseña</label>
+                <input type="password" class="form-input" id="confirmPassword" placeholder="Repite tu contraseña">
+                <div class="error-message" id="confirmError">Las contraseñas no coinciden</div>
+            </div>
+            
+            <button class="btn btn-primary" onclick="registerUser()">
+                🚀 INICIAR MISIÓN
+            </button>
+        </div>
+        
+        <div class="login-link">
+            ¿Ya tienes una cuenta? <a href="#" onclick="showLogin()">ACCEDER A LA NAVE</a>
+        </div>
+    </div>
+
+    <script>
+        // Validación en tiempo real
+        document.getElementById('fullName').addEventListener('input', function() {
+            validateName();
+        });
+
+        document.getElementById('password').addEventListener('input', function() {
+            validatePassword();
+            validateConfirmPassword();
+        });
+
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            validateConfirmPassword();
+        });
+
+        function validateName() {
+            const name = document.getElementById('fullName').value.trim();
+            const error = document.getElementById('nameError');
+            
+            if (name.length < 3) {
+                document.getElementById('fullName').classList.add('error');
+                error.style.display = 'block';
+                return false;
+            } else {
+                document.getElementById('fullName').classList.remove('error');
+                error.style.display = 'none';
+                return true;
+            }
+        }
+
+        function validatePassword() {
+            const password = document.getElementById('password').value;
+            const error = document.getElementById('passwordError');
+            
+            if (password.length < 6) {
+                document.getElementById('password').classList.add('error');
+                error.style.display = 'block';
+                return false;
+            } else {
+                document.getElementById('password').classList.remove('error');
+                error.style.display = 'none';
+                return true;
+            }
+        }
+
+        function validateConfirmPassword() {
+            const password = document.getElementById('password').value;
+            const confirm = document.getElementById('confirmPassword').value;
+            const error = document.getElementById('confirmError');
+            
+            if (confirm !== password) {
+                document.getElementById('confirmPassword').classList.add('error');
+                error.style.display = 'block';
+                return false;
+            } else {
+                document.getElementById('confirmPassword').classList.remove('error');
+                error.style.display = 'none';
+                return true;
+            }
+        }
+
+        function registerUser() {
+            const nameValid = validateName();
+            const passwordValid = validatePassword();
+            const confirmValid = validateConfirmPassword();
+            
+            if (nameValid && passwordValid && confirmValid) {
+                const userData = {
+                    fullName: document.getElementById('fullName').value.trim(),
+                    password: document.getElementById('password').value
+                };
+                
+                // Simular registro exitoso
+                alert('🚀 MISIÓN INICIADA!\n\nTripulante: ' + userData.fullName + '\n\n¡Bienvenido a bordo!');
+                
+                // Aquí normalmente redirigirías a la página de crear lista
+                console.log('Usuario registrado:', userData);
+                
+                // Simular redirección después de 2 segundos
+                setTimeout(() => {
+                    window.location.href = 'crear-lista.html';
+                }, 2000);
+                
+            } else {
+                alert('⚠ ALERTA: Verifica los campos marcados en rojo');
+            }
+        }
+
+        function showLogin() {
+            alert('🔐 Módulo de acceso - En desarrollo');
+            // Aquí iría la lógica para mostrar el login
+        }
+    </script>
+</body>
+</html>
