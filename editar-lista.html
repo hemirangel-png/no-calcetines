@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Mi Lista - No + Calcetines</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f8f9fa;
+            font-family: 'Nunito', sans-serif;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            min-height: 100vh;
+            background: url('https://i.ibb.co/gLV8VhkY/calcetines-pensando-frente-a-una-chimenea.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .header-section {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .logo {
+            font-family: 'Comic Neue', cursive;
+            font-size: 2.2rem;
+            color: white;
+            margin-bottom: 8px;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            color: white;
+            font-size: 1rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 600;
+        }
+
+        .gifts-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 8px 5px;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .gift-item {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 2px solid #A2D9FF;
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .gift-item:hover {
+            border-color: #FF9EBD;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .gift-number {
+            background: #FF9EBD;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 0.85rem;
+            box-shadow: 0 3px 8px rgba(255, 158, 189, 0.5);
+        }
+
+        .gift-input {
+            flex-grow: 1;
+            padding: 10px 12px;
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            color: #2D3748;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.9rem;
+            min-width: 0;
+            transition: all 0.3s ease;
+        }
+
+        .gift-input:focus {
+            outline: none;
+            border-color: #FF9EBD;
+            box-shadow: 0 0 0 2px rgba(255, 158, 189, 0.3);
+        }
+
+        .btn-delete {
+            background: #FF6B6B;
+            color: white;
+            border: none;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 3px 8px rgba(255, 107, 107, 0.5);
+        }
+
+        .btn-delete:hover {
+            background: #FF5252;
+            transform: scale(1.1);
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 400px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .btn {
+            padding: 14px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #FF9EBD, #FF6B93);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #A2D9FF, #87CEEB);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E8E);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Para tablets y desktop */
+        @media (min-width: 768px) {
+            .container {
+                padding: 50px 40px;
+                border-radius: 20px;
+                border: 3px solid #FF9EBD;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                max-width: 420px;
+                min-height: 580px;
+                margin: 20px auto;
+            }
+            
+            .gifts-container {
+                max-height: 280px;
+            }
+        }
+
+        /* Para móviles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 15px;
+                gap: 20px;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .gifts-container {
+                max-height: 45vh;
+            }
+        }
+
+        /* Para móviles muy pequeños */
+        @media (max-width: 480px) {
+            .gift-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                padding: 10px;
+            }
+            
+            .gift-input {
+                width: 100%;
+                padding: 8px 10px;
+                font-size: 0.85rem;
+            }
+            
+            .btn {
+                padding: 12px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header flotante -->
+        <div class="header-section">
+            <h1 class="logo">Editar Mi Lista</h1>
+            <div class="subtitle">Modifica tus regalos existentes</div>
+        </div>
+
+        <!-- Lista de regalos flotante -->
+        <div class="gifts-container" id="giftsContainer">
+            <!-- Los regalos se generarán dinámicamente -->
+        </div>
+
+        <!-- Botones de acciones flotantes -->
+        <div class="buttons-container">
+            <button class="btn btn-secondary" id="addGiftBtn" onclick="addGift()">
+                ➕ Agregar Otro Regalo
+            </button>
+            <button class="btn btn-primary" onclick="guardarCambios()">
+                💾 Guardar Cambios
+            </button>
+            <button class="btn btn-danger" onclick="cancelarEdicion()">
+                ❌ Cancelar
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Datos de ejemplo - TODOS editables
+        const listaRegalos = [
+            { id: 1, nombre: "🎮 Nintendo Switch OLED" },
+            { id: 2, nombre: "📚 Libro de cocina gourmet" },
+            { id: 3, nombre: "🧦 Pack de calcetines divertidos" },
+            { id: 4, nombre: "☕ Máquina de café espresso" },
+            { id: 5, nombre: "🎨 Set de acuarelas profesionales" }
+        ];
+
+        let giftCount = listaRegalos.length;
+        const maxGifts = 15;
+        
+        // Inicializar la lista con regalos existentes
+        function initializeGifts() {
+            const container = document.getElementById('giftsContainer');
+            container.innerHTML = '';
+            
+            listaRegalos.forEach(regalo => {
+                const giftItem = document.createElement('div');
+                giftItem.className = 'gift-item';
+                
+                giftItem.innerHTML = `
+                    <div class="gift-number">${regalo.id}</div>
+                    <input type="text" class="gift-input" value="${regalo.nombre}" data-id="${regalo.id}">
+                    <button class="btn-delete" onclick="eliminarRegalo(${regalo.id})">
+                        ×
+                    </button>
+                `;
+                container.appendChild(giftItem);
+            });
+        }
+        
+        // Agregar un nuevo regalo
+        function addGift() {
+            if (giftCount < maxGifts) {
+                giftCount++;
+                const container = document.getElementById('giftsContainer');
+                
+                const giftItem = document.createElement('div');
+                giftItem.className = 'gift-item';
+                giftItem.innerHTML = `
+                    <div class="gift-number">${giftCount}</div>
+                    <input type="text" class="gift-input" placeholder="Escribe un regalo increíble ${giftCount}" data-id="new-${giftCount}">
+                    <button class="btn-delete" onclick="eliminarRegalo('new-${giftCount}')">
+                        ×
+                    </button>
+                `;
+                container.appendChild(giftItem);
+                
+                // Deshabilitar botón si llegamos al máximo
+                if (giftCount === maxGifts) {
+                    document.getElementById('addGiftBtn').disabled = true;
+                }
+                
+                // Efecto visual al agregar
+                giftItem.style.transform = 'scale(0.9)';
+                giftItem.style.opacity = '0';
+                setTimeout(() => {
+                    giftItem.style.transform = 'scale(1)';
+                    giftItem.style.opacity = '1';
+                }, 10);
+            }
+        }
+        
+        // Eliminar un regalo
+        function eliminarRegalo(regaloId) {
+            if (confirm('¿Estás seguro de que quieres eliminar este regalo?')) {
+                const regaloIndex = listaRegalos.findIndex(r => r.id === regaloId);
+                if (regaloIndex !== -1) {
+                    listaRegalos.splice(regaloIndex, 1);
+                }
+                
+                // Reconstruir la lista
+                initializeGifts();
+            }
+        }
+        
+        // Guardar cambios
+        function guardarCambios() {
+            const giftInputs = document.querySelectorAll('.gift-input');
+            let hasErrors = false;
+            const nuevosRegalos = [];
+            
+            for (let i = 0; i < giftInputs.length; i++) {
+                const nombre = giftInputs[i].value.trim();
+                const regaloId = giftInputs[i].dataset.id;
+                
+                if (!nombre) {
+                    giftInputs[i].style.borderColor = 'red';
+                    hasErrors = true;
+                } else {
+                    giftInputs[i].style.borderColor = '';
+                    
+                    // Actualizar o agregar regalo
+                    if (regaloId.startsWith('new-')) {
+                        nuevosRegalos.push({
+                            id: listaRegalos.length + 1,
+                            nombre: nombre
+                        });
+                    } else {
+                        const regaloExistente = listaRegalos.find(r => r.id === parseInt(regaloId));
+                        if (regaloExistente) {
+                            regaloExistente.nombre = nombre;
+                        }
+                    }
+                }
+            }
+            
+            if (hasErrors) {
+                alert('¡Ups! Algunos regalos están vacíos. Completa todos los campos.');
+                return;
+            }
+            
+            // Agregar nuevos regalos
+            nuevosRegalos.forEach(nuevo => listaRegalos.push(nuevo));
+            
+            alert('✅ ¡Cambios guardados!\n\nTu lista de regalos ha sido actualizada.');
+            
+            // Redirigir al dashboard
+            setTimeout(() => {
+                window.location.href = 'crear-lista.html';
+            }, 1000);
+        }
+        
+        // Cancelar edición
+        function cancelarEdicion() {
+            if (confirm('¿Estás seguro de que quieres cancelar? Los cambios no guardados se perderán.')) {
+                window.location.href = 'crear-lista.html';
+            }
+        }
+        
+        // Inicializar al cargar la página
+        document.addEventListener('DOMContentLoaded', initializeGifts);
+    </script>
+</body>
+</html>

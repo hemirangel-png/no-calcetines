@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - No + Calcetines</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f8f9fa;
+            font-family: 'Nunito', sans-serif;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            min-height: 100vh;
+            background: url('https://i.ibb.co/JW5d3ccX/calcetines-cayendo-de-un-tarro-de-basura.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .header-section {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .logo {
+            font-family: 'Comic Neue', cursive;
+            font-size: 2.2rem;
+            color: white;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            color: white;
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 600;
+        }
+
+        .form-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 350px;
+            width: 100%;
+            margin: 0 auto 25px;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 18px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 2px solid #A2D9FF;
+            border-radius: 14px;
+            color: #333;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-input::placeholder {
+            color: #999;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #FF9EBD;
+            box-shadow: 0 0 0 3px rgba(255, 158, 189, 0.3);
+            background: white;
+        }
+
+        .form-input.error {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.3);
+        }
+
+        .optional-text {
+            color: white;
+            font-size: 0.8rem;
+            margin-top: 6px;
+            font-style: italic;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .password-requirements {
+            color: white;
+            font-size: 0.8rem;
+            margin-top: 6px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            font-size: 0.8rem;
+            margin-top: 6px;
+            display: none;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #FF9EBD, #FF6B93);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .login-link {
+            text-align: center;
+            color: white;
+            font-size: 0.95rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: #FF9EBD;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Para tablets y desktop */
+        @media (min-width: 768px) {
+            .container {
+                padding: 60px 40px;
+                border-radius: 20px;
+                border: 3px solid #FF9EBD;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                max-width: 400px;
+                min-height: 600px;
+                margin: 20px auto;
+            }
+        }
+
+        /* Para móviles muy pequeños */
+        @media (max-width: 360px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .form-content {
+                max-width: 320px;
+            }
+            
+            .btn {
+                padding: 16px;
+                font-size: 1rem;
+            }
+            
+            .form-input {
+                padding: 14px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header flotante -->
+        <div class="header-section">
+            <h1 class="logo">Únete a la Rebelión</h1>
+            <div class="subtitle">¡Di no a los calcetines aburridos!</div>
+        </div>
+
+        <!-- Formulario SIN CAJA - elementos flotantes -->
+        <div class="form-content">
+            <div class="form-group">
+                <input type="text" class="form-input" id="fullName" placeholder="Nombre completo">
+                <div class="error-message" id="nameError">El nombre debe tener al menos 3 caracteres</div>
+            </div>
+            
+            <div class="form-group">
+                <input type="email" class="form-input" id="email" placeholder="Email (opcional)">
+                <div class="optional-text">Opcional - Solo para notificaciones importantes</div>
+            </div>
+            
+            <div class="form-group">
+                <input type="password" class="form-input" id="password" placeholder="Contraseña">
+                <div class="password-requirements">Mínimo 6 caracteres</div>
+                <div class="error-message" id="passwordError">La contraseña debe tener al menos 6 caracteres</div>
+            </div>
+            
+            <div class="form-group">
+                <input type="password" class="form-input" id="confirmPassword" placeholder="Confirmar contraseña">
+                <div class="error-message" id="confirmError">Las contraseñas no coinciden</div>
+            </div>
+            
+            <button class="btn btn-primary" onclick="registerUser()">
+                🎁 Unirme a la Rebelión
+            </button>
+        </div>
+
+        <!-- Link a login -->
+        <div class="login-link">
+            ¿Ya tienes una cuenta? <a href="login.html">Iniciar Sesión</a>
+        </div>
+    </div>
+
+    <script>
+        // Validación en tiempo real
+        document.getElementById('fullName').addEventListener('input', function() {
+            validateName();
+        });
+
+        document.getElementById('password').addEventListener('input', function() {
+            validatePassword();
+            validateConfirmPassword();
+        });
+
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            validateConfirmPassword();
+        });
+
+        function validateName() {
+            const name = document.getElementById('fullName').value.trim();
+            const error = document.getElementById('nameError');
+            
+            if (name.length < 3) {
+                document.getElementById('fullName').classList.add('error');
+                error.style.display = 'block';
+                return false;
+            } else {
+                document.getElementById('fullName').classList.remove('error');
+                error.style.display = 'none';
+                return true;
+            }
+        }
+
+        function validatePassword() {
+            const password = document.getElementById('password').value;
+            const error = document.getElementById('passwordError');
+            
+            if (password.length < 6) {
+                document.getElementById('password').classList.add('error');
+                error.style.display = 'block';
+                return false;
+            } else {
+                document.getElementById('password').classList.remove('error');
+                error.style.display = 'none';
+                return true;
+            }
+        }
+
+        function validateConfirmPassword() {
+            const password = document.getElementById('password').value;
+            const confirm = document.getElementById('confirmPassword').value;
+            const error = document.getElementById('confirmError');
+            
+            if (confirm !== password) {
+                document.getElementById('confirmPassword').classList.add('error');
+                error.style.display = 'block';
+                return false;
+            } else {
+                document.getElementById('confirmPassword').classList.remove('error');
+                error.style.display = 'none';
+                return true;
+            }
+        }
+
+        function registerUser() {
+            const nameValid = validateName();
+            const passwordValid = validatePassword();
+            const confirmValid = validateConfirmPassword();
+            
+            if (nameValid && passwordValid && confirmValid) {
+                const userData = {
+                    fullName: document.getElementById('fullName').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    password: document.getElementById('password').value
+                };
+                
+                // Mostrar resumen del registro
+                let mensaje = '¡Bienvenido a la rebelión!\n\n';
+                mensaje += 'Usuario: ' + userData.fullName + '\n';
+                
+                if (userData.email) {
+                    mensaje += 'Email: ' + userData.email + '\n';
+                    mensaje += '🔔 Recibirás notificaciones por email';
+                } else {
+                    mensaje += '📱 Recibirás notificaciones en la app';
+                }
+                
+                mensaje += '\n\n¡Los calcetines aburridos temblarán!';
+                
+                alert(mensaje);
+                
+                // Redirigir a crear lista
+                setTimeout(() => {
+                    window.location.href = 'crear-lista.html';
+                }, 2000);
+                
+            } else {
+                alert('Por favor, corrige los errores en el formulario');
+            }
+        }
+
+        // Efecto de carga suave
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

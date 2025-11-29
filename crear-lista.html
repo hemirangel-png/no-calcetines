@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Lista de Regalos - No + Calcetines</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f8f9fa;
+            font-family: 'Nunito', sans-serif;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            min-height: 100vh;
+            background: url('https://i.ibb.co/PZn55m1V/muchos-calcetines-viajando-solos-en-actitud-triste-1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .header-section {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .logo {
+            font-family: 'Comic Neue', cursive;
+            font-size: 2.2rem;
+            color: white;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            color: white;
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 600;
+        }
+
+        .gifts-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+            max-height: 350px;
+            overflow-y: auto;
+            padding: 10px 5px;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .gift-item {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 2px solid #A2D9FF;
+            border-radius: 14px;
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .gift-item:hover {
+            border-color: #FF9EBD;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .gift-number {
+            background: #FF9EBD;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(255, 158, 189, 0.5);
+        }
+
+        .gift-input {
+            flex-grow: 1;
+            padding: 12px;
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            color: #2D3748;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.95rem;
+            min-width: 0;
+            transition: all 0.3s ease;
+        }
+
+        .gift-input:focus {
+            outline: none;
+            border-color: #FF9EBD;
+            box-shadow: 0 0 0 3px rgba(255, 158, 189, 0.3);
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            padding: 16px 25px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #FF9EBD, #FF6B93);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #A2D9FF, #87CEEB);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Botón Cerrar Sesión */
+        .logout-btn {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E8E);
+            color: white;
+            padding: 14px 25px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            border: 3px solid #FF9EBD;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .modal-title {
+            color: #FF6B93;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-family: 'Comic Neue', cursive;
+            font-weight: 700;
+        }
+
+        .code-display {
+            background: #F7FAFC;
+            color: #2D3748;
+            font-family: 'Courier New', monospace;
+            font-size: 1.5rem;
+            padding: 15px;
+            margin: 15px 0;
+            border: 2px solid #A2D9FF;
+            border-radius: 10px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .code-instructions {
+            color: #4A5568;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Para tablets y desktop */
+        @media (min-width: 768px) {
+            .container {
+                padding: 60px 40px;
+                border-radius: 20px;
+                border: 3px solid #FF9EBD;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                max-width: 400px;
+                min-height: 600px;
+                margin: 20px auto;
+            }
+        }
+
+        /* Para móviles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .gifts-container {
+                max-height: 50vh;
+            }
+
+            .logout-btn {
+                max-width: none;
+            }
+        }
+
+        /* Para móviles muy pequeños */
+        @media (max-width: 480px) {
+            .gift-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .gift-input {
+                width: 100%;
+            }
+            
+            .modal-content {
+                padding: 20px 15px;
+            }
+            
+            .code-display {
+                font-size: 1.2rem;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header flotante -->
+        <div class="header-section">
+            <h1 class="logo">Crear Lista de Regalos</h1>
+            <div class="subtitle">¡Elige regalos que no sean calcetines aburridos!</div>
+        </div>
+        
+        <!-- Contenedor de regalos flotante -->
+        <div class="gifts-container" id="giftsContainer">
+            <!-- Los regalos se generarán dinámicamente -->
+        </div>
+        
+        <!-- Botones flotantes -->
+        <div class="buttons-container">
+            <button class="btn btn-secondary" id="addGiftBtn" onclick="addGift()">
+                ➕ Agregar Otro Regalo
+            </button>
+            <button class="btn btn-primary" onclick="saveList()">
+                💾 Guardar Lista
+            </button>
+        </div>
+
+        <!-- Botón Cerrar Sesión flotante -->
+        <button class="logout-btn" onclick="cerrarSesion()">
+            🚪 Cerrar Sesión
+        </button>
+    </div>
+
+    <!-- Modal para mostrar el código generado -->
+    <div class="modal" id="codeModal">
+        <div class="modal-content">
+            <div class="modal-title">🎉 ¡Lista Creada!</div>
+            <p class="code-instructions">
+                Tu lista ha sido guardada. Comparte este código con tus amigos:
+            </p>
+            <div class="code-display" id="generatedCode">CAL-123-456</div>
+            <p class="code-instructions">
+                Ellos podrán usar este código para ver tu lista de regalos.
+            </p>
+            <button class="btn btn-primary" onclick="closeModal()">
+                ✅ Listo
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let giftCount = 3;
+        const maxGifts = 10;
+        
+        // Función para cerrar sesión
+        function cerrarSesion() {
+            if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+                window.location.href = 'index.html';
+            }
+        }
+        
+        // Inicializar la lista con 3 regalos
+        function initializeGifts() {
+            const container = document.getElementById('giftsContainer');
+            container.innerHTML = '';
+            
+            for (let i = 1; i <= giftCount; i++) {
+                const giftItem = document.createElement('div');
+                giftItem.className = 'gift-item';
+                giftItem.innerHTML = `
+                    <div class="gift-number">${i}</div>
+                    <input type="text" class="gift-input" placeholder="Escribe un regalo increíble ${i}" data-index="${i}">
+                `;
+                container.appendChild(giftItem);
+            }
+        }
+        
+        // Agregar un nuevo regalo
+        function addGift() {
+            if (giftCount < maxGifts) {
+                giftCount++;
+                const container = document.getElementById('giftsContainer');
+                
+                const giftItem = document.createElement('div');
+                giftItem.className = 'gift-item';
+                giftItem.innerHTML = `
+                    <div class="gift-number">${giftCount}</div>
+                    <input type="text" class="gift-input" placeholder="Escribe un regalo increíble ${giftCount}" data-index="${giftCount}">
+                `;
+                container.appendChild(giftItem);
+                
+                // Deshabilitar botón si llegamos al máximo
+                if (giftCount === maxGifts) {
+                    document.getElementById('addGiftBtn').disabled = true;
+                }
+                
+                // Efecto visual al agregar
+                giftItem.style.transform = 'scale(0.9)';
+                giftItem.style.opacity = '0';
+                setTimeout(() => {
+                    giftItem.style.transform = 'scale(1)';
+                    giftItem.style.opacity = '1';
+                }, 10);
+            }
+        }
+        
+        // Generar código aleatorio
+        function generateCode() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ123456789';
+            let code = 'CAL-';
+            for (let i = 0; i < 6; i++) {
+                if (i === 3) code += '-';
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return code;
+        }
+        
+        // Guardar lista y generar código
+        function saveList() {
+            const gifts = [];
+            const giftInputs = document.querySelectorAll('.gift-input');
+            
+            let hasErrors = false;
+            
+            for (let i = 0; i < giftCount; i++) {
+                const name = giftInputs[i].value.trim();
+                
+                if (name) {
+                    gifts.push({
+                        name: name,
+                        position: i + 1
+                    });
+                }
+                
+                // Resaltar campos vacíos
+                if (!name) {
+                    giftInputs[i].style.borderColor = 'red';
+                    hasErrors = true;
+                } else {
+                    giftInputs[i].style.borderColor = '';
+                }
+            }
+            
+            if (gifts.length === 0) {
+                alert('¡Agrega al menos un regalo a tu lista!');
+                return;
+            }
+            
+            // Generar y mostrar código
+            const code = generateCode();
+            document.getElementById('generatedCode').textContent = code;
+            document.getElementById('codeModal').style.display = 'flex';
+            
+            // Aquí normalmente enviaríamos los datos al servidor
+            console.log('Lista guardada:', gifts);
+            console.log('Código generado:', code);
+        }
+        
+        // Cerrar modal
+        function closeModal() {
+            document.getElementById('codeModal').style.display = 'none';
+        }
+        
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            const modal = document.getElementById('codeModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
+        // Inicializar al cargar la página
+        document.addEventListener('DOMContentLoaded', initializeGifts);
+    </script>
+</body>
+</html>

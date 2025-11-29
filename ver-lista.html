@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Lista de Regalos - No + Calcetines</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f8f9fa;
+            font-family: 'Nunito', sans-serif;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            min-height: 100vh;
+            background: url('https://i.ibb.co/RpSGzjzN/calcetines-trabajando-en-conjunto.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .header-section {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .logo {
+            font-family: 'Comic Neue', cursive;
+            font-size: 2.2rem;
+            color: white;
+            margin-bottom: 8px;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .owner-info {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 600;
+        }
+
+        .code-info {
+            color: #A2D9FF;
+            font-weight: bold;
+            font-size: 1rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .gifts-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+            max-height: 350px;
+            overflow-y: auto;
+            padding: 8px 5px;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .gift-item {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 2px solid #A2D9FF;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .gift-item:hover {
+            border-color: #FF9EBD;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .gift-number {
+            background: #FF9EBD;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+            box-shadow: 0 3px 8px rgba(255, 158, 189, 0.5);
+        }
+
+        .gift-name {
+            flex-grow: 1;
+            font-size: 1rem;
+            color: #2D3748;
+            font-weight: 600;
+            text-align: left;
+            padding: 8px 0;
+        }
+
+        .reservation-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .status-individual {
+            color: #A2D9FF;
+            font-weight: bold;
+        }
+
+        .status-group {
+            color: #FF9EBD;
+            font-weight: bold;
+        }
+
+        .btn-back {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E8E);
+            color: white;
+            padding: 14px 25px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-back:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Para tablets y desktop */
+        @media (min-width: 768px) {
+            .container {
+                padding: 50px 40px;
+                border-radius: 20px;
+                border: 3px solid #FF9EBD;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                max-width: 420px;
+                min-height: 580px;
+                margin: 20px auto;
+            }
+            
+            .gifts-container {
+                max-height: 320px;
+            }
+        }
+
+        /* Para móviles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 15px;
+                gap: 20px;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .gifts-container {
+                max-height: 45vh;
+            }
+
+            .btn-back {
+                max-width: none;
+            }
+        }
+
+        /* Para móviles muy pequeños */
+        @media (max-width: 480px) {
+            .gift-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 12px;
+            }
+            
+            .gift-name {
+                width: 100%;
+                padding: 6px 0;
+            }
+            
+            .btn-back {
+                padding: 12px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header flotante -->
+        <div class="header-section">
+            <h1 class="logo">Lista de Regalos</h1>
+            <div class="owner-info">de María González</div>
+            <div class="code-info">Código: CAL-789-ABC</div>
+        </div>
+        
+        <!-- Lista de regalos flotante - SOLO VISUALIZACIÓN -->
+        <div class="gifts-container" id="giftsContainer">
+            <!-- Los regalos se generarán dinámicamente -->
+        </div>
+
+        <!-- Botón Volver flotante -->
+        <button class="btn-back" onclick="volverInicio()">
+            ← Volver al Inicio
+        </button>
+    </div>
+
+    <script>
+        // Datos de ejemplo - lista de regalos (solo visualización)
+        const listaRegalos = [
+            { id: 1, nombre: "🎮 Nintendo Switch OLED", reservado: false },
+            { id: 2, nombre: "📚 Libro de cocina gourmet", reservado: true, tipo: "individual" },
+            { id: 3, nombre: "🧦 Pack de calcetines divertidos", reservado: false },
+            { id: 4, nombre: "☕ Máquina de café espresso", reservado: true, tipo: "grupal", grupo: { participantes: 3 } },
+            { id: 5, nombre: "🎨 Set de acuarelas profesionales", reservado: false }
+        ];
+
+        // Inicializar la lista de regalos (solo visualización)
+        function inicializarLista() {
+            const container = document.getElementById('giftsContainer');
+            container.innerHTML = '';
+
+            listaRegalos.forEach(regalo => {
+                const giftItem = document.createElement('div');
+                giftItem.className = 'gift-item';
+                
+                let statusHTML = '';
+                if (regalo.reservado) {
+                    if (regalo.tipo === 'individual') {
+                        statusHTML = `<div class="reservation-status"><span class="status-individual">👤 Reservado</span></div>`;
+                    } else if (regalo.tipo === 'grupal') {
+                        statusHTML = `<div class="reservation-status"><span class="status-group">👥 ${regalo.grupo?.participantes || 1} personas</span></div>`;
+                    }
+                }
+
+                giftItem.innerHTML = `
+                    <div class="gift-number">${regalo.id}</div>
+                    <div style="flex-grow: 1; text-align: left;">
+                        <div class="gift-name">${regalo.nombre}</div>
+                        ${statusHTML}
+                    </div>
+                `;
+                container.appendChild(giftItem);
+            });
+        }
+
+        function volverInicio() {
+            window.location.href = 'index.html';
+        }
+
+        // Inicializar al cargar la página
+        document.addEventListener('DOMContentLoaded', inicializarLista);
+    </script>
+</body>
+</html>
