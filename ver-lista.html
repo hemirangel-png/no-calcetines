@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Lista de Regalos - No + Calcetines</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f8f9fa;
+            font-family: 'Nunito', sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            min-height: 600px;
+            background: url('https://i.ibb.co/RpSGzjzN/calcetines-trabajando-en-conjunto.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 3px solid #FF9EBD;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .header-container {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .header, .gifts-container, .buttons-container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header {
+            margin-bottom: 0;
+        }
+
+        .logo {
+            font-family: 'Comic Neue', cursive;
+            font-size: 2rem;
+            color: #FF6B93;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .owner-info {
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .code-info {
+            color: #A2D9FF;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .gifts-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+            max-height: 350px;
+            overflow-y: auto;
+            padding: 10px 5px;
+        }
+
+        .gift-item {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #E2E8F0;
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .gift-item:hover {
+            border-color: #FF9EBD;
+            box-shadow: 0 5px 15px rgba(255, 158, 189, 0.3);
+        }
+
+        .gift-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-align: left;
+        }
+
+        .gift-number {
+            background: #FF9EBD;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 1rem;
+        }
+
+        .gift-name {
+            flex-grow: 1;
+            font-size: 1.1rem;
+            color: #2D3748;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .reservation-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .status-individual {
+            color: #A2D9FF;
+            font-weight: bold;
+        }
+
+        .status-group {
+            color: #FF9EBD;
+            font-weight: bold;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            flex: 1;
+        }
+
+        .btn-reservar {
+            background: linear-gradient(45deg, #A2D9FF, #87CEEB);
+            color: white;
+            box-shadow: 0 4px 10px rgba(162, 217, 255, 0.4);
+        }
+
+        .btn-minga {
+            background: linear-gradient(45deg, #FF9EBD, #FF6B93);
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 158, 189, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .back-button {
+            margin-top: 20px;
+        }
+
+        .btn-back {
+            background: linear-gradient(45deg, #FFB6C1, #FF9EBD);
+            color: white;
+            padding: 14px 30px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(255, 158, 189, 0.4);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            border: 3px solid #FF9EBD;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .modal-title {
+            color: #FF6B93;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-family: 'Comic Neue', cursive;
+            font-weight: 700;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn-primary {
+            background: linear-gradient(45deg, #A2D9FF, #87CEEB);
+            color: white;
+        }
+
+        .modal-btn-secondary {
+            background: linear-gradient(45deg, #FF9EBD, #FF6B93);
+            color: white;
+        }
+
+        .code-input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 2px solid #A2D9FF;
+            border-radius: 10px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .code-input:focus {
+            outline: none;
+            border-color: #FF9EBD;
+            box-shadow: 0 0 0 3px rgba(255, 158, 189, 0.3);
+        }
+
+        /* Para móviles */
+        @media (max-width: 768px) {
+            body {
+                padding: 0;
+            }
+            
+            .container {
+                min-height: 100vh;
+                max-width: none;
+                border-radius: 0;
+                padding: 30px 20px;
+                border: none;
+                box-shadow: none;
+            }
+            
+            .header-container {
+                margin-bottom: 20px;
+                padding: 15px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .gifts-container {
+                max-height: 50vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-container">
+            <div class="header">
+                <h1 class="logo">Lista de Regalos</h1>
+                <div class="owner-info">de María González</div>
+                <div class="code-info">Código: CAL-789-ABC</div>
+            </div>
+        </div>
+        
+        <div class="gifts-container" id="giftsContainer">
+            <!-- Lista de regalos generada dinámicamente -->
+        </div>
+
+        <div class="back-button">
+            <button class="btn btn-back" onclick="volverInicio()">
+                ← Volver al Inicio
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal para Reservar -->
+    <div class="modal" id="reserveModal">
+        <div class="modal-content">
+            <div class="modal-title">🎁 Reservar Regalo</div>
+            <p>¿Cómo quieres reservar este regalo?</p>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-primary" onclick="reservarIndividual()">
+                    👤 Reservar Solo
+                </button>
+                <button class="modal-btn modal-btn-secondary" onclick="mostrarMinga()">
+                    👥 Minga (En Grupo)
+                </button>
+            </div>
+            <button class="btn btn-back" onclick="cerrarModal('reserveModal')" style="margin-top: 15px; width: 100%;">
+                Cancelar
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal para Minga -->
+    <div class="modal" id="mingaModal">
+        <div class="modal-content">
+            <div class="modal-title">👥 Minga - Trabajo en Conjunto</div>
+            <p>¿Quieres crear un nuevo grupo o unirte a uno existente?</p>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-primary" onclick="crearMinga()">
+                    🆕 Crear Nueva Minga
+                </button>
+                <button class="modal-btn modal-btn-secondary" onclick="unirseMinga()">
+                    🔗 Unirse a Minga
+                </button>
+            </div>
+            <button class="btn btn-back" onclick="cerrarModal('mingaModal')" style="margin-top: 15px; width: 100%;">
+                Cancelar
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal para Unirse a Minga -->
+    <div class="modal" id="unirseModal">
+        <div class="modal-content">
+            <div class="modal-title">🔗 Unirse a Minga</div>
+            <p>Ingresa el código de la minga:</p>
+            <input type="text" class="code-input" id="codigoMinga" placeholder="Ej: MINGA-5A3B" maxlength="11">
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-primary" onclick="unirseConCodigo()">
+                    ✅ Unirse
+                </button>
+            </div>
+            <button class="btn btn-back" onclick="cerrarModal('unirseModal')" style="margin-top: 15px; width: 100%;">
+                Cancelar
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Datos de ejemplo - lista de regalos
+        const listaRegalos = [
+            { id: 1, nombre: "🎮 Nintendo Switch OLED", reservado: false, tipo: null, grupo: null },
+            { id: 2, nombre: "📚 Libro de cocina gourmet", reservado: false, tipo: null, grupo: null },
+            { id: 3, nombre: "🧦 Pack de calcetines divertidos", reservado: false, tipo: null, grupo: null },
+            { id: 4, nombre: "☕ Máquina de café espresso", reservado: false, tipo: null, grupo: null },
+            { id: 5, nombre: "🎨 Set de acuarelas profesionales", reservado: false, tipo: null, grupo: null }
+        ];
+
+        let regaloSeleccionado = null;
+
+        // Inicializar la lista de regalos
+        function inicializarLista() {
+            const container = document.getElementById('giftsContainer');
+            container.innerHTML = '';
+
+            listaRegalos.forEach(regalo => {
+                const giftItem = document.createElement('div');
+                giftItem.className = 'gift-item';
+                
+                let statusHTML = '';
+                if (regalo.reservado) {
+                    if (regalo.tipo === 'individual') {
+                        statusHTML = `<div class="reservation-status"><span class="status-individual">👤 Reservado individualmente</span></div>`;
+                    } else if (regalo.tipo === 'grupal') {
+                        statusHTML = `<div class="reservation-status"><span class="status-group">👥 ${regalo.grupo?.participantes || 1} personas en minga</span></div>`;
+                    }
+                }
+
+                giftItem.innerHTML = `
+                    <div class="gift-header">
+                        <div class="gift-number">${regalo.id}</div>
+                        <div class="gift-name">${regalo.nombre}</div>
+                    </div>
+                    ${statusHTML}
+                    <div class="action-buttons">
+                        <button class="btn btn-reservar" onclick="abrirModalReserva(${regalo.id})" ${regalo.reservado ? 'disabled' : ''}>
+                            🎁 Reservar
+                        </button>
+                        <button class="btn btn-minga" onclick="abrirModalMinga(${regalo.id})" ${regalo.reservado ? 'disabled' : ''}>
+                            👥 Minga
+                        </button>
+                    </div>
+                `;
+                container.appendChild(giftItem);
+            });
+        }
+
+        // Funciones para modales
+        function abrirModalReserva(regaloId) {
+            regaloSeleccionado = regaloId;
+            document.getElementById('reserveModal').style.display = 'flex';
+        }
+
+        function abrirModalMinga(regaloId) {
+            regaloSeleccionado = regaloId;
+            document.getElementById('mingaModal').style.display = 'flex';
+        }
+
+        function mostrarMinga() {
+            cerrarModal('reserveModal');
+            document.getElementById('mingaModal').style.display = 'flex';
+        }
+
+        function unirseMinga() {
+            cerrarModal('mingaModal');
+            document.getElementById('unirseModal').style.display = 'flex';
+        }
+
+        function cerrarModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Funciones de reserva
+        function reservarIndividual() {
+            if (regaloSeleccionado) {
+                const regalo = listaRegalos.find(r => r.id === regaloSeleccionado);
+                if (regalo && !regalo.reservado) {
+                    regalo.reservado = true;
+                    regalo.tipo = 'individual';
+                    alert('✅ ¡Regalo reservado individualmente!\n\nEl dueño de la lista solo sabrá que alguien lo reservó, pero no quién.');
+                    inicializarLista();
+                    cerrarModal('reserveModal');
+                }
+            }
+        }
+
+        function crearMinga() {
+            if (regaloSeleccionado) {
+                const codigoMinga = 'MINGA-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+                const regalo = listaRegalos.find(r => r.id === regaloSeleccionado);
+                if (regalo && !regalo.reservado) {
+                    regalo.reservado = true;
+                    regalo.tipo = 'grupal';
+                    regalo.grupo = {
+                        codigo: codigoMinga,
+                        participantes: 1
+                    };
+                    alert(`👥 ¡Minga creada!\n\nCódigo: ${codigoMinga}\n\nComparte este código con amigos para que se unan a la minga.`);
+                    inicializarLista();
+                    cerrarModal('mingaModal');
+                }
+            }
+        }
+
+        function unirseConCodigo() {
+            const codigo = document.getElementById('codigoMinga').value.trim().toUpperCase();
+            if (!codigo) {
+                alert('🧦 ¡Ups! Escribe un código de minga');
+                return;
+            }
+
+            if (regaloSeleccionado) {
+                const regalo = listaRegalos.find(r => r.id === regaloSeleccionado);
+                // En una implementación real, aquí buscaríamos la minga en la base de datos
+                if (regalo && !regalo.reservado) {
+                    regalo.reservado = true;
+                    regalo.tipo = 'grupal';
+                    regalo.grupo = {
+                        codigo: codigo,
+                        participantes: 2 // Simulamos que ya hay alguien más
+                    };
+                    alert(`👥 ¡Te uniste a la minga!\n\nCódigo: ${codigo}\n\nAhora son 2 personas en esta minga.`);
+                    inicializarLista();
+                    cerrarModal('unirseModal');
+                }
+            }
+        }
+
+        function volverInicio() {
+            window.location.href = 'index.html';
+        }
+
+        // Cerrar modales al hacer clic fuera
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+
+        // Inicializar al cargar la página
+        document.addEventListener('DOMContentLoaded', inicializarLista);
+    </script>
+</body>
+</html>
